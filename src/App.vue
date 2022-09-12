@@ -1,17 +1,17 @@
 <template> 
-  <h1>{{ To Do App }}</h1> 
+  <h1>{{ ToDoApp }}</h1> 
  </template>
 
 <h2>Add a new task</h2>
   <div>   
-     <input type="text"     
-     v-model="newTask"
-     @keyup.enter="addTask"
-     placeholder="Add a new task"   
-     > 
+    <input type="text"     
+    v-model="newTask"
+    @keyup.enter="addTask"
+    placeholder="Add a new task"
+    > 
     <button     
     @click="addTask"      
-    :disabled="newTask.length < 1"    
+    :disabled="newTask.length < 1" 
     >      
     Add task    
     </button>
@@ -26,13 +26,13 @@ at the moment
 <div v-if="newTask.length > 0">   
 <h3>New task preview</h3>   
  <p>{{ newTask }}</p> 
-</div
+</div>
 
 <script> 
 export default {  
   data() {    
     return {     
-       title: 'My To Do App',
+       title: 'ToDoApp',
       newTask: [        
         { id: 1, name: 'Learn Vue JS', finished: false },        
         { id: 2, name: 'Build a Vue application', finished: false },        
@@ -62,25 +62,17 @@ methods: {
       this.newTask = ''    
     }  
   }
-
 </script>
 
 <ul>    
-    <li v-for="(task, index) in latest" :key="task.id">        
-      {{ index + 1 }}. {{ task.name }}
+  <li v-for="(task, index) in latest" :key="task.id">        
+    {{ index + 1 }}. {{ task.name }}
 
-      <div v-if="task.finished">            
-         <button @click="removeTask(task.id)">Delete task</button>        
+    <div v-if="task.finished">            
+      <button @click="removeTask(task.id)">Delete task</button>        
       </div>    
-    </li> 
+  </li> 
 </ul>
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
 
 @media (min-width: 1024px) {
   header {
