@@ -62,8 +62,6 @@ methods: {
       this.newTask = ''    
     }  
   }
-</script>
-
 <ul>    
   <li v-for="(task, index) in latest" :key="task.id">        
     {{ index + 1 }}. {{ task.name }}
@@ -73,12 +71,13 @@ methods: {
       </div>    
   </li> 
 </ul>
+</script>
 
+<style>
 @media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
-
 </style>
