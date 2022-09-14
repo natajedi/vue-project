@@ -21,44 +21,40 @@
             v-bind:value="valueInput"
             v-on:input="handleInput"
             v-on:keypress.enter="addTask"
-            >
-          <button class="btn" v-on:click="addTask">Add a new task</button>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <h2>
-        <span>To Do</span>
-        <span class="mask-num">{{ needDoList.length }}</span>
-      </h2>
-      <ul class="mask-list">
-        <li
-          v-for="(mask, index) in needDoList"
-          :key="mask.id"
-        >
-          <div>
-            <input type="checkbox" v-on:change="doCheck(index, 'need')"/>
-            <span>{{ mask.title }}</span>
-          </div>
-          <button class="btn-remove" v-on:click="removeMask(index, 'need')">Remove</button>
-        </li>
-      </ul>
-      <h2>
-        <span>Done</span>
-        <span class="mask-num">{{ completeList.length }}</span>
-      </h2>
-      <ul class="mask-list complete-list">
-        <li
-          v-for="(mask, index) in completeList"
-          :key="mask.id"
-        >
-          <div>
-            <input type="checkbox" v-on:change="doCheck(index, 'complete')"  checked>
-            <span>{{ mask.title }}</span>
-          </div>
-          <button class="btn-remove" v-on:click="removeMask(index, 'complete')">Remove</button>
-        </li>
-      </ul>
+<script type="module">
+import { createApp, ref } from 'vue'
+
+createApp({
+  setup() {
+    // give each todo a unique id
+    let id = 0
+
+    const newTodo = ref('')
+    const todos = ref([
+      { id: id++, text: 'Learn HTML' },
+      { id: id++, text: 'Learn JavaScript' },
+      { id: id++, text: 'Learn Vue' }
+    ])
+
+    function addTodo() {
+      todos.value.push({ id: id++, text: newTodo.value })
+      newTodo.value = ''
+    }
+          
+    function removeTodo(todo) {
+      todos.value = todos.value.filter((t) => t !== todo)
+    }
+
+    return {
+      newTodo,
+      todos,
+      addTodo,
+      removeTodo
+    }
+  }
+}).mount('#app')
+</script>
+        
     </div>
   </div>
   <script src="https://unpkg.com/vue@next"></script>
