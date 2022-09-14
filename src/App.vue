@@ -1,34 +1,46 @@
-<script>
-  export default {
-    data() {
-      return {
-        todoId: 1,
-        todoData: null
-      }
-    },
-    methods: {
-      async fetchData() {
-        this.todoData = null
-        const res = await fetch(
-          `https://jsonplaceholder.typicode.com/todos/${this.todoId}`
-        )
-        this.todoData = await res.json()
-      }
-    },
-    mounted() {
-      this.fetchData()
-    },
-    watch: {
-      todoId() {
-        this.fetchData()
-      }
+<script type="module">
+import { createApp, ref } from 'vue'
+
+createApp({
+  setup() {
+    // give each todo a unique id
+    let id = 0
+
+    const newTodo = ref('')
+    const todos = ref([
+      { id: id++, text: 'Learn HTML' },
+      { id: id++, text: 'Learn JavaScript' },
+      { id: id++, text: 'Learn Vue' }
+    ])
+
+    function addTodo() {
+      todos.value.push({ id: id++, text: newTodo.value })
+      newTodo.value = ''
+    }
+
+    function removeTodo(todo) {
+      todos.value = todos.value.filter((t) => t !== todo)
+    }
+
+    return {
+      newTodo,
+      todos,
+      addTodo,
+      removeTodo
     }
   }
-  </script>
-  
-  <template>
-    <p>Todo id: {{ todoId }}</p>
-    <button @click="todoId++">Fetch next todo</button>
-    <p v-if="!todoData">Loading...</p>
-    <pre v-else>{{ todoData }}</pre>
-  </template>
+}).mount('#app')
+</script>
+
+<div id="app">
+  <form @submit.prevent="addTodo">
+    <input v-model="newTodo">
+    <button>Add Todo</button>    
+  </form>
+  <ul>
+    <li v-for="todo in todos" :key="todo.id">
+      {{ todo.text }}
+      <button @click="removeTodo(todo)">X</button>
+    </li>
+  </ul>
+</div>
