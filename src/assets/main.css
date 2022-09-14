@@ -1,5 +1,3 @@
-@import "./base.css";
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -9,8 +7,8 @@
 }
 
 body {
-	background-color: #7fffd4;
-	color: #272626;
+    background-color: #7fffd4;
+    color: #272626;
 }
 
 @media (hover: hover) {
